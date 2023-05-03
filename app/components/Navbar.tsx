@@ -1,26 +1,42 @@
-"use client";
+import { v4 as uuidv4 } from "uuid";
+import supabase from "../../utils/supabase";
 
-import React, { useState } from "react";
+// async function refreshImages() {
+//   const { data } = await supabase.storage.from("images").list({ limit: 100 });
+//   // console.log({ data });
+//   return { data };
+// }
 
-const Navbar = () => {
-  const [nav, setNav] = useState(false);
+export default (async function Navbar() {
+  async function uploadImage(e: any) {
+    let file = e.target.files[0];
 
-  window
-    .matchMedia("(orientation: portrait)")
-    .addEventListener("change", (e) => {
-      setNav(false);
-    });
+    const { data, error } = await supabase.storage
+      .from("images")
+      .upload(uuidv4(), file);
+
+    if (data) {
+      //refreshImages();
+    }
+  }
 
   return (
-    <div className="flex flex-col ontop justify-between items-center w-full h-12 px-3 pt-2 text-gray-900 bg-slate-200 dark:text-white dark:bg-gray-900 fixed border-b-4 border-emerald-500">
-      <div className=""></div>
-      <ul className="hidden landscape:flex md:flex justify-center items-center">
-        <button className="px-3 cursor-pointer capitalize font-bold dark:text-white hover:scale-105 duration-200 text-xl">
-          Upload new Photo
-        </button>
-      </ul>
+    <div className="flex flex-col ontop items-center w-full h-auto px-3 pt-2 pb-2 fixed border-b-8 border-gray-600">
+      <form>
+        <input
+          type="file"
+          accept="image/png, image/jpeg"
+          id="upload"
+          className="hidden"
+        />
+        <label
+          htmlFor="upload"
+          className="btn btn-xs sm:btn-sm md:btn-md lg:btn-lg"
+          // onChange={(e) => uploadImage(e)}
+        >
+          Upload new photo
+        </label>
+      </form>
     </div>
   );
-};
-
-export default Navbar;
+} as unknown as () => JSX.Element);
