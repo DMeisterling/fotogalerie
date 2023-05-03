@@ -1,10 +1,13 @@
-import { Inter } from "next/font/google";
-import Image from "next/image";
+import Gallery from "./components/Gallery";
+import Navbar from "./components/Navbar";
 
-const inter = Inter({ subsets: ["latin"] });
+export const dynamic = 'force-dynamic';
 
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24"></main>
+    <main>
+      <Navbar />
+      <Gallery />
+    </main>
   );
 }

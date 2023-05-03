@@ -1,7 +1,4 @@
-import { Inter } from "next/font/google";
 import "./globals.css";
-
-const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
   title: "Photo gallery",
@@ -15,8 +12,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <link rel="" href=""
-      <body className={inter.className}>{children}</body>
+      <body>{children}</body>
     </html>
   );
 }
